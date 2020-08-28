@@ -3,16 +3,14 @@ type: docker
 name: drone-website-harness-deploy
 
 steps:
-- name: build
-  image: alpine
 - name: publish
   image: plugins/docker
-  repo: pmawyer/drone-basic-website
+  repo: pmawyer/mytestsite
   username:
     from_secret: docker_username
   password: 
     from_secret: docker_password
-  dry_run: true # remove this to publish.
+  dry_run: false # remove this to publish.
 - name: harness-deploy
   image: luisredda/drone-harness-plugin
   settings:  
@@ -38,7 +36,7 @@ steps:
       artifactValueInput: {
         valueType: BUILD_NUMBER
         buildNumber: {
-          buildNumber: "1"
+          buildNumber: "latest"
     artifactSourceName: "pmawyer_mytestsite"
         }
       }}  ]
