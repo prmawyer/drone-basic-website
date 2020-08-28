@@ -7,10 +7,10 @@ steps:
   image: plugins/docker
   repo: pmawyer/mytestsite
   username:
-  - from_secret: docker_username
+    from_secret: docker_username
   password: 
-  - from_secret: docker_password
-  dry_run: false # remove this to publish.
+    from_secret: docker_password
+  dry_run: true # remove this to publish.
 - name: harness-deploy
   image: luisredda/drone-harness-plugin
   settings:  
@@ -18,9 +18,9 @@ steps:
   type: "PIPELINE"
   entityname: "pm-drone-test-pipeline"
   accountid:
-  - from_secret: harness_se_acctid
+    from_secret: harness_se_acctid
   apikey: 
-  - from_secret: harness_se_apikey
+    from_secret: harness_se_apikey
   body: |
    variableInputs: [ 
     {
@@ -41,5 +41,5 @@ steps:
         }
       }}  ]
   when:
-  - repo:
+    repo:
     - prmawyer/drone-website
