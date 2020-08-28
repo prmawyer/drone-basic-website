@@ -3,14 +3,9 @@ type: docker
 name: drone-website-harness-deploy
 
 steps:
-- name: build
-  image: alpine
-  commands:
-  - npm install
-  - npm test
 - name: publish
   image: plugins/docker
-  repo: pmawyer/drone-website
+  repo: pmawyer/mytestsite
   username:
     from_secret: docker_username
   password: 
@@ -42,7 +37,7 @@ steps:
         valueType: BUILD_NUMBER
         buildNumber: {
           buildNumber: "latest"
-    artifactSourceName: "pmawyer_node-demo"
+    artifactSourceName: "pmawyer_mytestsite"
         }
       }}  ]
   when:
