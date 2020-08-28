@@ -1,0 +1,50 @@
+kind: pipeline
+type: docker
+name: drone-website-harness-deploy
+
+steps:
+- name: build
+  image: alpine
+  commands:
+  - npm install
+  - npm test
+- name: publish
+  image: plugins/docker
+  repo: pmawyer/drone-website
+  username:
+    from_secret: docker_username
+  password: 
+    from_secret: docker_password
+  dry_run: false # remove this to publish.
+- name: harness-deploy
+  image: luisredda/drone-harness-plugin
+  settings:  
+  application: "Patrick-Workspace"
+  type: "PIPELINE"
+  entityname: "pm-drone-test-pipeline"
+  accountid:
+    from_secret: harness_se_acctid
+  apikey: 
+    from_secret: harness_se_apikey
+  body: |
+   variableInputs: [ 
+    {
+      name: "Service"
+      variableValue: {
+        type: NAME
+        value: "pm-drone-test"
+      }
+    }
+    ], 
+    serviceInputs: [ {
+      name: "pm-drone-test", 
+      artifactValueInput: {
+        valueType: BUILD_NUMBER
+        buildNumber: {
+          buildNumber: "latest"
+    artifactSourceName: "pmawyer_node-demo"
+        }
+      }}  ]
+  when:
+    repo:
+    - prmawyer/drone-website
