@@ -7,7 +7,7 @@ steps:
   image: alpine
 - name: publish
   image: plugins/docker
-  repo: pmawyer/mytestsite
+  repo: pmawyer/drone-basic-website
   username:
     from_secret: docker_username
   password: 
@@ -44,4 +44,4 @@ steps:
       }}  ]
   when:
     repo:
-    - prmawyer/drone-website
+    - prmawyer/drone-basic-website
