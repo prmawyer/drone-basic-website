@@ -3,6 +3,8 @@ type: docker
 name: drone-website-harness-deploy
 
 steps:
+- name: build
+  image: alpine
 - name: publish
   image: plugins/docker
   repo: pmawyer/mytestsite
