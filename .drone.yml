@@ -38,7 +38,7 @@ steps:
       artifactValueInput: {
         valueType: BUILD_NUMBER
         buildNumber: {
-          buildNumber: "latest"
+          buildNumber: "1"
     artifactSourceName: "pmawyer_mytestsite"
         }
       }}  ]
